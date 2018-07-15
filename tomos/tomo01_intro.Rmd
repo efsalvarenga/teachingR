@@ -72,12 +72,48 @@ Quando um projeto é reaberto, o estado da última sessão salva é carregado.
 NB: Os pacotes carregados não são salvos como estado da sessão e precisam ser carregados novamente.
 
 
-## Variáveis
+## Objetos / variáveis
 
-Variáveis têm valores atribuídos por meio dos símbolos **<-** ou **=**.
-Nomes de variáveis precisam iniciar com letras (maiúsculas ou minúsculas) seguidos de letras, números, _underscores_ ou pontos.
+Objetos / variáveis têm valores atribuídos por meio dos símbolos **<-** ou **=**.
+Nomes de objetos precisam iniciar com letras (maiúsculas ou minúsculas) seguidos de letras, números, _underscores_ ou pontos.
 Espaços não podem ser utilizados.
 NB: O R é sensível a maiúsculas e minúsculas.
 
+### Tipos de objetos
 
+Objetos armazenam dados em diferentes tipos de estrutuas.
+As mais comuns estão descritas abaixo.
 
+*Vetores e matrizes*, que armazenam valores do mesmo tipo (número, texto, booleano) em todas as suas posições.
+Essas estruturas são úteis para operações matriciais (matriz de correlação, multiplicacões vetoriais, etc.).
+O R interpreta vetores como matrizes de apenas uma dimensão.
+
+$$
+Vetor
+\begin{bmatrix}
+    x_{1} & x_{2} & x_{3} & \dots  & x_{n}
+\end{bmatrix}
+$$
+
+$$
+Matriz
+\begin{bmatrix}
+    x_{11} & x_{12} & x_{13} & \dots  & x_{1n} \\
+    x_{21} & x_{22} & x_{23} & \dots  & x_{2n} \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    x_{d1} & x_{d2} & x_{d3} & \dots  & x_{dn}
+\end{bmatrix}
+$$
+
+*Listas* são objetos com estruturas flexíveis e armazenam valores em um ou mais elementos nomeados (nomes ou números).
+Cada um desses elementos podem ser de diferentes estruturas, tipos e comprimentos.
+Listas podem armazenar outras listas, em uma cadeia hierárquica.
+Muitas funções do R retornam listas como resultado de cálculos.
+
+*Data frames* são tabelas quadradas onde todas as colunas possuem o mesmo número de posições.
+Internamente, o R interpreta data frames como listas de vetores.
+Cada coluna deve possuir um único tipo de valores, mas colunas diferentes podem utilizar tipos de valores diferentes.
+Essa estrutura é muito similar a uma planila do MS Excel.
+
+Algumas funções dependem de um determinado tipo de esturura para sua execução, e funções que transformam entre tipos de estruturas diferentes estão disponiveis.
+Outros tipos de estruturas estão disponíveis ( [Data types](https://www.statmethods.net/input/datatypes.html)).
