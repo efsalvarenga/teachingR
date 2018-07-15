@@ -1,0 +1,49 @@
+---
+title: "Tomo 01 Introdução"
+author: "EFS Alvarenga"
+date: "14/07/2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Interface do R Studio
+
+A melhor maneira de descrever a interface é com o próprio [vídeo do R Studio](https://vimeo.com/97166163).
+
+## Console
+
+* Interface para execução de comandos
+* Pode ser utilizada para operações simples ou complexas
+* Execução de código em real time
+* Bom para rápidos testes de variáveis
+
+```{r}
+print('Hello world!')
+```
+
+
+## Scripts
+
+* Mantêm sequenciamento de código (e salvar)
+* Pode ser executado linha-a-linha, seleção ou tudo: _Ctrl+R_, _Ctrl+Enter_ ou botão _Run_
+* O resultado da execução aparece no console
+* Mútiplos scripts podem estar abertos ao mesmo tempo
+
+```{r}
+1+1 			          # returns 2
+v1 <- 2		          # save value for v1
+v2 <- 3		          # save value for v2
+v1 + v2		          # returns 5
+```
+
+
+## Projects
+
+* Permite multiplas sessões
+* Define o **work directory** como a pasta do projeto
+* Permite controle de versão (Git, SVN)
+* Para detalhes, consulte o [Using Projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)
+
