@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 A melhor maneira de descrever a interface é com o próprio [vídeo do R Studio](https://vimeo.com/97166163).
 
 
-## Console
+### Console
 
 O console é a interface para execução de comandos em real time.
 Ele pode ser utilizado para operações simples ou complexas, sem necessidade de criação de scripts.
@@ -25,18 +25,14 @@ print('Hello world!')
 ```
 
 
-## Scripts
+### Scripts
 
 Os scripts mantêm o sequenciamento do código e podem ser salvos.
 Múltiplos scripts podem estar abertos ao mesmo tempo
 A execução de scripts se dá linha-a-linha ou selecionando um conjunto de linhas e depois **Ctrl+R**, **Ctrl+Enter** ou botão **Run**.
 O resultado da execução aparece no console.
 
-### Comentários
-
 Caracteres seguidos do símbolo **#** não são considerados na execução de comandos e servem como comentários no código.
-
-### Espaços
 
 O número de espaços é irrelevante para a execução do código.
 O uso de espaçamento apropriado auxilia a leitura e interpretação do código por outros usuários.
@@ -84,7 +80,7 @@ NB: O R é sensível a maiúsculas e minúsculas.
 Objetos armazenam dados em diferentes tipos de estrutuas.
 As mais comuns estão descritas abaixo.
 
-*Vetores e matrizes*, que armazenam valores do mesmo tipo (número, texto, booleano) em todas as suas posições.
+**Vetores e matrizes**, que armazenam valores do mesmo tipo (número, texto, booleano) em todas as suas posições.
 Essas estruturas são úteis para operações matriciais (matriz de correlação, multiplicacões vetoriais, etc.).
 O R interpreta vetores como matrizes de apenas uma dimensão.
 
@@ -105,15 +101,86 @@ Matriz
 \end{bmatrix}
 $$
 
-*Listas* são objetos com estruturas flexíveis e armazenam valores em um ou mais elementos nomeados (nomes ou números).
+**Listas** são objetos com estruturas flexíveis e armazenam valores em um ou mais elementos nomeados (nomes ou números).
 Cada um desses elementos podem ser de diferentes estruturas, tipos e comprimentos.
 Listas podem armazenar outras listas, em uma cadeia hierárquica.
 Muitas funções do R retornam listas como resultado de cálculos.
 
-*Data frames* são tabelas quadradas onde todas as colunas possuem o mesmo número de posições.
+**Data frames** são tabelas quadradas onde todas as colunas possuem o mesmo número de posições.
 Internamente, o R interpreta data frames como listas de vetores.
 Cada coluna deve possuir um único tipo de valores, mas colunas diferentes podem utilizar tipos de valores diferentes.
 Essa estrutura é muito similar a uma planila do MS Excel.
 
 Algumas funções dependem de um determinado tipo de esturura para sua execução, e funções que transformam entre tipos de estruturas diferentes estão disponiveis.
 Outros tipos de estruturas estão disponíveis ( [Data types](https://www.statmethods.net/input/datatypes.html)).
+
+### Atribuição de valores a objetos
+
+Valores podem ser atribídos a objetos diretamente pelo usuário ou por meio do resultado de funções (incluindo funções que importam valores de outras fontes como planilhas, banco de dados, etc.).
+
+### Exemplo
+
+Atribua valores a objetos, leia os valores desses objetos e realize operações simples.
+
+```{r}
+# Básico
+1+1
+v1 <- 2	          # atribui o valor 2 ao objeto v1
+v2 <- 3
+v1 + v2           # retorna no console o resultado da operação
+
+# Vetores
+x <- c(1,2,3)     # define vetor x
+y <- c(5,-3,0)    # define vetor y
+x                 # retorna o vetor x
+y                 # retorna o vetor y
+
+# Operações aritmeticas
+x+y               # Adição
+x*y               # Multiplicação termo a termo
+x%*%y             # Multiplicação de matrizes
+
+# (Des)igualdades
+x<y
+x<=y
+x==y              # Verifica igualdade
+x!=y              # Retorna o oposto da verificação de igualdade
+
+# Posições em vetores (subscripts)
+x[1]              # Retorna o valor na primeira posição
+x[1:2]            # Retorna os valores nas posições 1 a 2
+x[c(1,3)]         # Retorna os valores nas posições 1 e 3
+x[-3]             # Exclui determinadas posições
+```
+
+
+## Funções
+
+Funções executam operações nos inputs passados a elas (normalmente variáveis e objetos) e retornam outputs (que podem ser gravados como novos objetos ou apresentados no console).
+Observe abaixo a função `seq()` que gera uma sequência de números:
+
+```{r}
+z <- seq(from=5, length=4, by=2)
+```
+
+Para obter ajuda com relação a uma função digite o caracter `?` antes do nome da função, ou pressione **F1** com o cursor sobre a função.
+Alternativamente, utilize a aba _Help_ do R Studio ou procure na internet.
+
+### Encadeamento de funções
+
+Funções podem ser encadeadas ao invés de avaliadas objeto a objeto, como abaixo.
+
+```{r}
+z <- seq(from=5, length=4, by=2)
+z
+
+y <- rep(z,times=2)
+y
+
+w <- sum(y)
+w
+
+Z <- sum (rep(seq (from=5, length=4, by=2),times=2))
+Z
+```
+
