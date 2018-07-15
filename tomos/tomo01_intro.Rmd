@@ -13,12 +13,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 A melhor maneira de descrever a interface é com o próprio [vídeo do R Studio](https://vimeo.com/97166163).
 
+
 ## Console
 
-* Interface para execução de comandos
-* Pode ser utilizada para operações simples ou complexas
-* Execução de código em real time
-* Bom para rápidos testes de variáveis
+O console é a interface para execução de comandos em real time.
+Ele pode ser utilizado para operações simples ou complexas, sem necessidade de criação de scripts.
+Em geral é uma boa opção para testar rapidamente algum código antes de incluí-lo em algum script.
 
 ```{r}
 print('Hello world!')
@@ -27,17 +27,10 @@ print('Hello world!')
 
 ## Scripts
 
-* Mantêm sequenciamento de código (e salvar)
-* Pode ser executado linha-a-linha, seleção ou tudo: _Ctrl+R_, _Ctrl+Enter_ ou botão _Run_
-* O resultado da execução aparece no console
-* Mútiplos scripts podem estar abertos ao mesmo tempo
-
-```{r}
-1+1 			          # returns 2
-v1 <- 2		          # save value for v1
-v2 <- 3		          # save value for v2
-v1 + v2		          # returns 5
-```
+Os scripts mantêm o sequenciamento do código e podem ser salvos.
+Mútiplos scripts podem estar abertos ao mesmo tempo
+A execução de scripts se dá linha-a-linha ou selecionando um conjunto de linhas e depois **Ctrl+R**, **Ctrl+Enter** ou botão **Run**.
+O resultado da execução aparece no console.
 
 
 ## Projects
@@ -46,4 +39,40 @@ v1 + v2		          # returns 5
 * Define o **work directory** como a pasta do projeto
 * Permite controle de versão (Git, SVN)
 * Para detalhes, consulte o [Using Projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)
+
+
+## Pacotes
+
+* Podem ser instalados
+  * menu Tools > Install Packages ...
+  * linha de comando
+* Ao instalar um pacote as dependências são checadas e instaladas caso necessário
+* São carregados pela função `library()`
+* Pacotes precisam ser carregados em toda nova sessão
+
+```{r eval=FALSE}
+install.packages('ggplot2')
+library(ggplot2)
+```
+
+## Sessões
+
+* O estado das sessões são salvos por padrão no R Studio
+  * scripts abertos
+  * environment (variáveis carregadas na memória)
+  * histórico de comandos
+* Os dados da sessão são salvos na pasta do projeto
+* Quando um projeto é reaberto, a última sessão salva é carregada
+
+
+
+
+
+
+```{r}
+1+1 			          # returns 2
+v1 <- 2		          # save value for v1
+v2 <- 3		          # save value for v2
+v1 + v2		          # returns 5
+```
 
