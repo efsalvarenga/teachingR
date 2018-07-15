@@ -1,5 +1,6 @@
 ---
 title: "Tomo 01 Introdução"
+subtitle: 'Da série Aprendendo R com o Estêvão"'
 author: "EFS Alvarenga"
 date: "14/07/2018"
 output: pdf_document
@@ -11,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Interface do R Studio
 
-A melhor maneira de descrever a interface é com o próprio [vídeo do R Studio](https://vimeo.com/97166163).
+A melhor maneira de descrever a interface é com o próprio vídeo do R Studio [link](https://vimeo.com/97166163).
 
 
 ### Console
@@ -45,11 +46,11 @@ As principais vantagens da utilização da funcionalidade _Projects_ (projetos) 
 Definir o _working directory_ como a pasta do projeto automaticamente;
 permitir o controle de versão (Git ou SVN) internamente pelo R Studio e;
 utilização de várias sessões ao mesmo tempo.
-Para maiores detalhes, consulte o [Using Projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) do R Studio.
+Para maiores detalhes, consulte o [link](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) do R Studio.
 
 ### Working directory sem a utilização de projetos
 Apesar não ser recomendado, caso o usuário escolha não utilizar projetos, o _working directory_ pode ser definido manualmente através do comando `setwd()`.
-Para se referir a caminhos de arquivos e diretórios no sistema operacional, o R utiliza o _encoding_ do *Unix* (mais detalhes em [file system basics](http://www.osdata.com/programming/shell/filesystembasics.html))
+Para se referir a caminhos de arquivos e diretórios no sistema operacional, o R utiliza o _encoding_ do *Unix* (mais detalhes em [link](http://www.osdata.com/programming/shell/filesystembasics.html))
 
 
 ## Pacotes / bibliotecas
@@ -77,11 +78,11 @@ NB: O R é sensível a maiúsculas e minúsculas.
 
 ### Tipos de objetos
 
-Objetos armazenam dados em diferentes tipos de estrutuas.
+Objetos armazenam dados em diferentes tipos de estruturas.
 As mais comuns estão descritas abaixo.
 
 **Vetores e matrizes**, que armazenam valores do mesmo tipo (número, texto, booleano) em todas as suas posições.
-Essas estruturas são úteis para operações matriciais (matriz de correlação, multiplicacões vetoriais, etc.).
+Essas estruturas são úteis para operações matriciais (matriz de correlação, multiplicações vetoriais, etc.).
 O R interpreta vetores como matrizes de apenas uma dimensão.
 
 $$
@@ -109,14 +110,14 @@ Muitas funções do R retornam listas como resultado de cálculos.
 **Data frames** são tabelas quadradas onde todas as colunas possuem o mesmo número de posições.
 Internamente, o R interpreta data frames como listas de vetores.
 Cada coluna deve possuir um único tipo de valores, mas colunas diferentes podem utilizar tipos de valores diferentes.
-Essa estrutura é muito similar a uma planila do MS Excel.
+Essa estrutura é muito similar a uma planilha do MS Excel.
 
-Algumas funções dependem de um determinado tipo de esturura para sua execução, e funções que transformam entre tipos de estruturas diferentes estão disponiveis.
-Outros tipos de estruturas estão disponíveis ( [Data types](https://www.statmethods.net/input/datatypes.html)).
+Algumas funções dependem de um determinado tipo de estrutura para sua execução, e funções que transformam entre tipos de estruturas diferentes estão disponíveis.
+Outros tipos de estruturas estão disponíveis [link](https://www.statmethods.net/input/datatypes.html).
 
 ### Atribuição de valores a objetos
 
-Valores podem ser atribídos a objetos diretamente pelo usuário ou por meio do resultado de funções (incluindo funções que importam valores de outras fontes como planilhas, banco de dados, etc.).
+Valores podem ser atribuídos a objetos diretamente pelo usuário ou por meio do resultado de funções (incluindo funções que importam valores de outras fontes como planilhas, banco de dados, etc.).
 
 ### Exemplo
 
@@ -163,12 +164,12 @@ Observe abaixo a função `seq()` que gera uma sequência de números:
 z <- seq(from=5, length=4, by=2)
 ```
 
-Para obter ajuda com relação a uma função digite o caracter `?` antes do nome da função, ou pressione **F1** com o cursor sobre a função.
+Para obter ajuda com relação a uma função digite o caractere `?` antes do nome da função, ou pressione **F1** com o cursor sobre a função.
 Alternativamente, utilize a aba _Help_ do R Studio ou procure na internet.
 
 ### Encadeamento de funções
 
-Funções podem ser encadeadas ao invés de avaliadas objeto a objeto, como abaixo.
+Funções podem ser encadeadas ao invés de avaliadas objeto a objeto.
 
 ```{r}
 z <- seq(from=5, length=4, by=2)
@@ -182,5 +183,33 @@ w
 
 Z <- sum (rep(seq (from=5, length=4, by=2),times=2))
 Z
+```
+
+### For-loops
+
+_For-loops_ permitem a execução de rotinas em _loop_ enquanto as condições estejam satisfeitas.
+
+```{r}
+k <- 0
+for (x in 2:5){
+  cat('valor inicial de k = ',k)
+  cat('\n será somado a x = ',x)
+  k <- k+x
+  cat('\n valor agregado (novo k) = ',k)
+  cat('\n fim do passo ---------------\n\n')
+}
+# \n significa nova linha
+```
+
+### Escrevendo suas próprias funções
+
+Escrever funções definidas pelo usuário permite: compartilhar técnicas e métodos, otimizar rotinas, eliminar repetição nos scripts para tarefas executadas diversas vezes e modularização do código.
+
+```{r}
+subtracao_simples <- function(x,y) {
+  return(x-y)
+} # esse passo define a função
+
+subtracao_simples(5,4) # executa a função definida previamente
 ```
 
