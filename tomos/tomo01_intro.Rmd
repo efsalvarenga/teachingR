@@ -1,6 +1,6 @@
 ---
-title: "Tomo 01 Introdução"
-subtitle: 'Da série Aprendendo R com o Estêvão"'
+title: 'Learning R Chapter 1.01'
+subtitle: 'Introduction'
 author: "EFS Alvarenga"
 date: "14/07/2018"
 output: pdf_document
@@ -10,12 +10,24 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Interface do R Studio
+## Before starting
 
-A melhor maneira de descrever a interface é com o próprio vídeo do R Studio [link](https://vimeo.com/97166163).
+Firstly install R from the [R Project website](https://www.r-project.org/).
+Usually there are more than one R versions available.
+For the sake of simplicity, download the newest.
+If lost on the website, search for the 'Download' word (and get used to look for stuff on the internet, you will need a lot of it to get going with R).
+
+R is just the programming language.
+You can actually access the language and build code from your system console, but generally the user will interact with it using an user interface such as RStudio.
+Rstudio Desktop is an open source software and is available for download from the [R Studio website](https://www.rstudio.com/).
+
+## R Studio interface
+
+The best description of the RStudio interface is done by the guys from RStudio.
+Follow the [vimeo link](https://vimeo.com/97166163).
 
 
-### Console
+### The console
 
 O console é a interface para execução de comandos em real time.
 Ele pode ser utilizado para operações simples ou complexas, sem necessidade de criação de scripts.
