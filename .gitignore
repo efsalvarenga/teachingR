@@ -5,3 +5,4 @@
 packrat/lib*/
 tomos/*.pdf
 *.DS_Store
+data/df1.csv

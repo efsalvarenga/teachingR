@@ -1,227 +1,120 @@
 ---
-title: 'Learning R Chapter 1.01'
-subtitle: 'Introduction'
+title: 'Learning R Chapter 2'
+subtitle: 'Data Processing'
 author: "EFS Alvarenga"
-date: "14/07/2018"
+date: "23/07/2018"
 output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
 ```
 
 ## Before starting
 
-Firstly install R from the [R Project website](https://www.r-project.org/).
-Usually there are more than one R versions available.
-For the sake of simplicity, download the newest.
-If lost on the website, search for the 'Download' word (and get used to look for stuff on the internet, you will need a lot of it to get going with R).
+The initial task is to get familiarised with the different data object types.
 
-R is just the programming language.
-You can actually access the language and build code from your system console, but generally the user will interact with it using an user interface such as RStudio.
-Rstudio Desktop is an open source software and is available for download from the [R Studio website](https://www.rstudio.com/).
+### Vectors
 
-## R Studio interface
-
-The best description of the RStudio interface is done by the guys from RStudio.
-Follow the [vimeo link](https://vimeo.com/97166163).
-
-
-### The console
-
-O console é a interface para execução de comandos em real time.
-Ele pode ser utilizado para operações simples ou complexas, sem necessidade de criação de scripts.
-Em geral é uma boa opção para testar rapidamente algum código antes de incluí-lo em algum script.
+Several functions can be used to create vectors.
 
 ```{r}
-print('Hello world!')
+v1 <- 1                 # vector with length 1
+v1
+v2 <- c(1,2,3,4)        # basic function for creating (combining) vectors
+v2
+1:10                    # sequence from 1 to 10
+seq(1,10)               # sequence from 1 to 10
+seq(1,10, by = 2)       # sequence from 1 to 10, 2 by 2
+rep(1,5)                # repeat 1, 5 times
+rep(c(1,2,4),5)         # repeat vector c(1,2,4) 5 times
 ```
 
+### Data types
 
-### Scripts
-
-Os scripts mantêm o sequenciamento do código e podem ser salvos.
-Múltiplos scripts podem estar abertos ao mesmo tempo
-A execução de scripts se dá linha-a-linha ou selecionando um conjunto de linhas e depois **Ctrl+R**, **Ctrl+Enter** ou botão **Run**.
-O resultado da execução aparece no console.
-
-Caracteres seguidos do símbolo **#** não são considerados na execução de comandos e servem como comentários no código.
-
-O número de espaços é irrelevante para a execução do código.
-O uso de espaçamento apropriado auxilia a leitura e interpretação do código por outros usuários.
-O mesmo comando pode se estender por mais de uma linha, e recomenda-se a utilização dessa funcionalidade quando o comando é muito longo.
-Adicionalmente a mesma linha pode conter mais de um comando, desde que separados por ponto-e-vírgula (esta opção geralmente atrapalha a leitura do código por outro usuário).
-
-## Projects
-
-As principais vantagens da utilização da funcionalidade _Projects_ (projetos) são:
-Definir o _working directory_ como a pasta do projeto automaticamente;
-permitir o controle de versão (Git ou SVN) internamente pelo R Studio e;
-utilização de várias sessões ao mesmo tempo.
-Para maiores detalhes, consulte o [link](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) do R Studio.
-
-### Working directory sem a utilização de projetos
-Apesar não ser recomendado, caso o usuário escolha não utilizar projetos, o _working directory_ pode ser definido manualmente através do comando `setwd()`.
-Para se referir a caminhos de arquivos e diretórios no sistema operacional, o R utiliza o _encoding_ do *Unix* (mais detalhes em [link](http://www.osdata.com/programming/shell/filesystembasics.html))
-
-
-## Pacotes / bibliotecas
-
-Uma das grandes vantagens do R é sua extensibilidade por meio de pacotes / bibliotecas.
-Pacotes podem ser instalados por meio do menu _Tools > Install Packages_ ou pela linha de comando através do `install.packages()`.
-Ao instalar novos pacotes suas dependências são checadas e instaladas caso necessário.
-Pacotes instalados podem ser carregados através da função `library()`. 
-
-
-## Sessões
-
-Por padrão o R Studio salva o estado das sessões ao ser fechado. O estado inclui: scripts abertos, _environment_ (ambiente - variáveis carregadas na memória) e histórico de comandos.
-As informações do estado das sessões são salvos na pasta do projeto (ou no _working directory_ caso a funcionalidade de projetos não esteja sendo utilizada).
-Quando um projeto é reaberto, o estado da última sessão salva é carregado.
-NB: Os pacotes carregados não são salvos como estado da sessão e precisam ser carregados novamente.
-
-
-## Objetos / variáveis
-
-Objetos / variáveis têm valores atribuídos por meio dos símbolos **<-** ou **=**.
-Nomes de objetos precisam iniciar com letras (maiúsculas ou minúsculas) seguidos de letras, números, _underscores_ ou pontos.
-Espaços não podem ser utilizados.
-NB: O R é sensível a maiúsculas e minúsculas.
-
-### Tipos de objetos
-
-Objetos armazenam dados em diferentes tipos de estruturas.
-As mais comuns estão descritas abaixo.
-
-**Vetores e matrizes**, que armazenam valores do mesmo tipo (número, texto, booleano) em todas as suas posições.
-Essas estruturas são úteis para operações matriciais (matriz de correlação, multiplicações vetoriais, etc.).
-O R interpreta vetores como matrizes de apenas uma dimensão.
-
-$$
-Vetor
-\begin{bmatrix}
-    x_{1} & x_{2} & x_{3} & \dots  & x_{n}
-\end{bmatrix}
-$$
-
-$$
-Matriz
-\begin{bmatrix}
-    x_{11} & x_{12} & x_{13} & \dots  & x_{1n} \\
-    x_{21} & x_{22} & x_{23} & \dots  & x_{2n} \\
-    \vdots & \vdots & \vdots & \ddots & \vdots \\
-    x_{d1} & x_{d2} & x_{d3} & \dots  & x_{dn}
-\end{bmatrix}
-$$
-
-**Listas** são objetos com estruturas flexíveis e armazenam valores em um ou mais elementos nomeados (nomes ou números).
-Cada um desses elementos podem ser de diferentes estruturas, tipos e comprimentos.
-Listas podem armazenar outras listas, em uma cadeia hierárquica.
-Muitas funções do R retornam listas como resultado de cálculos.
-
-**Data frames** são tabelas quadradas onde todas as colunas possuem o mesmo número de posições.
-Internamente, o R interpreta data frames como listas de vetores.
-Cada coluna deve possuir um único tipo de valores, mas colunas diferentes podem utilizar tipos de valores diferentes.
-Essa estrutura é muito similar a uma planilha do MS Excel.
-
-Algumas funções dependem de um determinado tipo de estrutura para sua execução, e funções que transformam entre tipos de estruturas diferentes estão disponíveis.
-Outros tipos de estruturas estão disponíveis [link](https://www.statmethods.net/input/datatypes.html).
-
-### Atribuição de valores a objetos
-
-Valores podem ser atribuídos a objetos diretamente pelo usuário ou por meio do resultado de funções (incluindo funções que importam valores de outras fontes como planilhas, banco de dados, etc.).
-
-### Exemplo
-
-Atribua valores a objetos, leia os valores desses objetos e realize operações simples.
+R can handle several data types.
+Vectors and matrices are restricted to use the same type of data in the entire structure, while lists and data frames allow mixed data type structures.
 
 ```{r}
-# Básico
-1+1
-v1 <- 2	          # atribui o valor 2 ao objeto v1
-v2 <- 3
-v1 + v2           # retorna no console o resultado da operação
-
-# Vetores
-x <- c(1,2,3)     # define vetor x
-y <- c(5,-3,0)    # define vetor y
-x                 # retorna o vetor x
-y                 # retorna o vetor y
-
-# Operações aritmeticas
-x+y               # Adição
-x*y               # Multiplicação termo a termo
-x%*%y             # Multiplicação de matrizes
-
-# (Des)igualdades
-x<y
-x<=y
-x==y              # Verifica igualdade
-x!=y              # Retorna o oposto da verificação de igualdade
-
-# Posições em vetores (subscripts)
-x[1]              # Retorna o valor na primeira posição
-x[1:2]            # Retorna os valores nas posições 1 a 2
-x[c(1,3)]         # Retorna os valores nas posições 1 e 3
-x[-3]             # Exclui determinadas posições
+vlog  <- c(FALSE, TRUE, FALSE)            # vector of boolean data
+vtex  <- c('x', 'key', 'water', 'true')   # vector of strings
+vint  <- c(124, 34223, 43, 342)           # vector of integers
+vreal <- c(23.4, 34.2, 2, 4.1)           # vector of real numbers
 ```
 
-
-## Funções
-
-Funções executam operações nos inputs passados a elas (normalmente variáveis e objetos) e retornam outputs (que podem ser gravados como novos objetos ou apresentados no console).
-Observe abaixo a função `seq()` que gera uma sequência de números:
+If the user (or some function) returns a vector with mixed data types, R will try to fit everything in the more flexible data type possible (generally strings).
 
 ```{r}
-z <- seq(from=5, length=4, by=2)
+vmix <- c(1, 2, 'ops')
+vmix
 ```
 
-Para obter ajuda com relação a uma função digite o caractere `?` antes do nome da função, ou pressione **F1** com o cursor sobre a função.
-Alternativamente, utilize a aba _Help_ do R Studio ou procure na internet.
-
-### Encadeamento de funções
-
-Funções podem ser encadeadas ao invés de avaliadas objeto a objeto.
+Many functions are available for testing the data type of a given object.
 
 ```{r}
-z <- seq(from=5, length=4, by=2)
-z
-
-y <- rep(z,times=2)
-y
-
-w <- sum(y)
-w
-
-Z <- sum (rep(seq (from=5, length=4, by=2),times=2))
-Z
+is.logical(vlog)
+is.character(vint)
+is.character(vmix)
+is.numeric(vtex)
 ```
 
-### For-loops
+### Data frames
 
-_For-loops_ permitem a execução de rotinas em _loop_ enquanto as condições estejam satisfeitas.
+Data frames are square tables.
+Structurally speaking they work like a list of vectors of the same length, with the inherited flexibility of allowing different data types on each column.
 
 ```{r}
-k <- 0
-for (x in 2:5){
-  cat('valor inicial de k = ',k)
-  cat('\n será somado a x = ',x)
-  k <- k+x
-  cat('\n valor agregado (novo k) = ',k)
-  cat('\n fim do passo ---------------\n\n')
-}
-# \n significa nova linha
+data.frame(let = c('A','B','C'), num = c(2, 3, 4), logi = c(T, F, T))
+data.frame(let = c('A','B','C'),
+           num = c(2, 3, 4),
+           logi = c(T, F, T))
+let = c('A','B','C')
+num = c(2, 3, 4)
+logi = c(T, F, T)
+data.frame(let, num, logi)
 ```
 
-### Escrevendo suas próprias funções
+Notice different ways of building the same object in R (as in many programming languages)/
+Also notice we use `<-` for assigning values to an object, while `=` was used for assigning values to arguments within function calls.
+This is a aesthetic decision as `=` can also be used for assigning values to objects.
 
-Escrever funções definidas pelo usuário permite: compartilhar técnicas e métodos, otimizar rotinas, eliminar repetição nos scripts para tarefas executadas diversas vezes e modularização do código.
+### Saving and loading data frames
+
+Data frames are flexible structures but still hold restrictions that allow them to be easily saved and loaded as simple table files.
+CSV files are preferable given their easy interpretation in many applications and OSes.
 
 ```{r}
-subtracao_simples <- function(x,y) {
-  return(x-y)
-} # esse passo define a função
-
-subtracao_simples(5,4) # executa a função definida previamente
+df1 <- data.frame(A = let,
+                  B = num,
+                  C = logi)
+df1
+write.table(x = df1,
+            file = '../data/df1.csv',
+            sep = ';',
+            row.names = FALSE)
+df2 <- read.table(file = '../data/df1.csv',
+                  sep = ';',
+                  header = TRUE)
+df2
 ```
+
+## Data processig using Base R
+
+The function `read.csv()` and `read.csv2()` are sister functions of the `read.table()` used before and can be used to load many data sources.
+However, the file to be loaded for the next exercises is an MS Excel spreadsheet.
+For this, we will need to install and load a new library called `readxl`.
+
+```{r eval=FALSE, include=TRUE}
+install.packages("readxl")
+library(readxl)
+```
+
+The file below
+
+
+```{r}
+readxl::read_excel(path = 'https://www.eia.gov/electricity/data/state/annual_generation_state.xls')
+```
+
 
