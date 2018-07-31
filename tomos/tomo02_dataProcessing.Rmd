@@ -102,19 +102,16 @@ df2
 ## Data processig using Base R
 
 The function `read.csv()` and `read.csv2()` are sister functions of the `read.table()` used before and can be used to load many data sources.
-However, the file to be loaded for the next exercises is an MS Excel spreadsheet.
-For this, we will need to install and load a new library called `readxl`.
+Other file types can also be imported, such as MS Excel spreadsheets (through the `readxl` and many others), SQL querries, etc.
+For further information of how to import specific file types, please see [This R Data Import Tutorial Is Everything You Need](https://www.datacamp.com/community/tutorials/r-data-import-tutorial).
 
-```{r eval=FALSE, include=TRUE}
-install.packages("readxl")
-library(readxl)
-```
-
-The file below
-
+You will be importing a simplyfied dataset for the next steps on this tutorial.
+This dataset contains the historical energy generation for a few countries (in GWh).
 
 ```{r}
-readxl::read_excel(path = 'https://www.eia.gov/electricity/data/state/annual_generation_state.xls')
+energy_gen <- read.csv(file = 'https://www.dropbox.com/s/tdzpd8rsnweeoo2/EnergyDataLight.csv?dl=1')
 ```
 
-
+```{r}
+energy_gen_full <- read.csv(file = 'https://www.dropbox.com/s/nx1rd3byrj7gtjv/EnergyData.csv?dl=1')
+```
