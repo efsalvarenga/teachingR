@@ -9,6 +9,7 @@ output: pdf_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)
+library(tidyr)
 ```
 
 ## Before starting
@@ -231,6 +232,64 @@ energy_gen %>%
   summarise(uGBR = mean(GBR),
             uUSA = mean(USA))
 ```
+
+Another useful `tidyverse` library for data analytics is the `tidyr`.
+
+```{r eval=FALSE, include=TRUE}
+library(tidyr)
+```
+
+The `gather()` and `spread()` functions allows the transformation of wide tables (like the one we've been using) into long tables, similar to database encoding.
+For more details on this process, visit the [Tidy Data](http://vita.had.co.nz/papers/tidy-data.html) article from Hadley Wickham.
+
+```{r}
+energy_gen_long <- energy_gen %>%
+  gather(country, generation, -TIME)
+energy_gen_long %>% head()
+energy_gen_long %>%
+  spread(country, generation) %>%
+  head()
+```
+
+With the long table format running operations is a bit simpler through the `group_by()` function.
+
+```{r}
+energy_gen_long %>%
+  mutate(decade = 10*floor(TIME/10)) %>%
+  group_by(decade, country) %>%
+  summarise(avgGen = mean(generation))
+```
+
+To visualise the same way as before, just use `filter()` for selecting only **GBR** and **USA** and then add the `spread()` in the end.
+
+```{r}
+energy_gen_long %>%
+  mutate(decade = 10*floor(TIME/10)) %>%
+  group_by(decade, country) %>%
+  summarise(avgGen = mean(generation)) %>%
+  filter(country %in% c('GBR','USA')) %>%
+  spread(country, avgGen)
+```
+
+NB. Wide tables are very useful for human data visualisation.
+However, long tables are preferable for computational operations.
+For this reason, mastering the `gather()` and `spread()` functions is very handy for data analysis.
+
+The `distinct()` function returns the unique combination of values between all selected columns (or the unique values of a singular column).
+
+```{r}
+energy_gen_long %>%
+  mutate(decade = 10*floor(TIME/10)) %>%
+  dplyr::select(decade) %>%
+  distinct()
+energy_gen_long %>%
+  mutate(decade = 10*floor(TIME/10)) %>%
+  dplyr::select(decade, country) %>%
+  distinct() %>%
+  head(12)
+# I am using the head(12) for brevity on the print version
+```
+
 
 
 
