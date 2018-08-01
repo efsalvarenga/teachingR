@@ -8,7 +8,7 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(readxl)
+library(dplyr)
 ```
 
 ## Before starting
@@ -111,6 +111,111 @@ This dataset contains the historical energy generation for a few countries (in G
 ```{r}
 energy_gen <- read.csv(file = 'https://www.dropbox.com/s/tdzpd8rsnweeoo2/EnergyDataLight.csv?dl=1')
 ```
+
+There are many functions to examine imported (or generated) datasets.
+
+```{r}
+head(energy_gen)                   # examine the first lines of an object
+energy_gen[1:10,c(1,3:5)]          # examine subsets of an object
+is.data.frame(energy_gen)          # check if the object is a data frame
+dim(energy_gen)                    # check an object's dimensions
+str(energy_gen)                    # check the objects's structure
+summary(energy_gen)                # descriptive statistics of columns
+energy_gen$NLD                     # extract a vector from a specific column
+energy_gen[,2]                     # the same operation as before, using subsets
+```
+
+```{r eval=FALSE, include=TRUE}
+View(energy_gen)                   # open the object viewer in a new tab
+```
+
+We can apply mathematical (statistical) operations on the dataset.
+
+```{r}
+GBRu <- mean(energy_gen$GBR)
+GBRu
+NLDu <- mean(energy_gen$NLD)
+NLDu
+NORu <- mean(energy_gen$NOR)
+NORu
+USAu <- mean(energy_gen$USA)
+USAu
+```
+
+We can convert the recently created objects (which are of the double type) can be converted as integers.
+
+```{r}
+as.integer(GBRu)
+as.integer(NLDu)
+as.integer(NORu)
+as.integer(USAu)
+```
+
+We can also perform arithmetic calculations.
+
+```{r}
+USAu / GBRu
+round(USAu / GBRu, 1)
+```
+
+## Data processig using **tidyverse**
+
+_The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures._
+Read more about the tidyverse here [https://www.tidyverse.org/](https://www.tidyverse.org/).
+
+```{r eval=FALSE, include=TRUE}
+install.packages('tidyverse')
+```
+
+We will start using the `dplyr` library from tidyverse.
+
+```{r eval=FALSE, include=TRUE}
+library(dplyr)
+```
+
+`dplyr` is used for chaining functions in an execution routine.
+This schema allows the invertion of a function and its arguments, based of the `%>%` operator from `magittr`.
+In this sense, `f(x)` can be presented as `x %>% f`, which makes it easier to read long execution chains.
+
+```{r}
+sum(rep(seq(from=4, length=6, by=2), times=2))
+seq(from=4, length=6, by=2) %>%
+  rep(., times=2) %>%
+  sum(.)
+```
+
+The "." (dot) is interpreted as the result of the previous execution being called as the argument, and it can be omitted most of the times.
+
+```{r}
+seq(from=4, length=6, by=2) %>%
+  rep(times=2) %>%
+  sum()
+```
+
+Beyond the chain operator, `dplyr` uses _verb_ functions for operations such as `filter()`, `group_by()`, `select()`, `summarise()`.
+
+NB. The function `head()` is included as the last in a chain to avoid printing the entire output on the tutorial.
+By excluding this last function the output will include the entire table.
+
+```{r}
+energy_gen %>%
+  head()
+energy_gen %>%
+  filter(TIME > 2008)
+```
+
+From experience I know the `select()` function from `dplyr` has a conflict with another package (functions with the same name, but different execution routines).
+To avoid errors the package from which the function will be called can be assigned with the operator `::`.
+This way, a robust way of calling the `select()` function is as below.
+
+```{r}
+
+```
+
+
+
+
+
 
 ```{r}
 energy_gen_full <- read.csv(file = 'https://www.dropbox.com/s/nx1rd3byrj7gtjv/EnergyData.csv?dl=1')
