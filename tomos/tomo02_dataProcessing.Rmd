@@ -209,7 +209,27 @@ To avoid errors the package from which the function will be called can be assign
 This way, a robust way of calling the `select()` function is as below.
 
 ```{r}
+energy_gen %>%
+  dplyr::select(TIME,GBR,USA) %>%
+  head()
+```
 
+The `mutate()` function allows creating (or updating existing) variables.
+
+```{r}
+energy_gen %>%
+  dplyr::select(TIME,GBR,USA) %>%
+  mutate(decade = 10*floor(TIME/10))
+```
+
+If, after calculating the decades, we wanted to group by and then calculate averages for each decade, we can observe the energy generation trend over the decades.
+
+```{r}
+energy_gen %>%
+  mutate(decade = 10*floor(TIME/10)) %>%
+  group_by(decade) %>%
+  summarise(uGBR = mean(GBR),
+            uUSA = mean(USA))
 ```
 
 
