@@ -291,11 +291,58 @@ energy_gen_long %>%
 ```
 
 
-
-
-
-
+Para organizar os dados em ordem crescente ou decrescente utilize `arrange()` ou `arrange(desc())`, respectivamente.
 
 ```{r}
-energy_gen_full <- read.csv(file = 'https://www.dropbox.com/s/nx1rd3byrj7gtjv/EnergyData.csv?dl=1')
+energy_gen_long %>%
+  group_by(country) %>%
+  summarise(avgGen = mean(generation)) %>%
+  arrange(desc(avgGen))
 ```
+
+Para combinar tabelas distintas em uma única tabela, utilize os **join()** baseados em banco de dados.
+_Joins_ são como a função `vlookup()` ou `procv()` do Excel turbinadas!
+  Para uma descrição completa dessas operações veja [SQL Joins](https://www.devmedia.com.br/sql-join-entenda-como-funciona-o-retorno-dos-dados/31006).
+
+Para exemplificar, vamos criar duas tabelas baseadas na `energy_gen_long` e executar diversos _joins_.
+
+```{r}
+tab1 <- energy_gen_long %>%
+  mutate(decade = 10*floor(TIME/10)) %>%
+  group_by(decade, country) %>%
+  summarise(avgGen = mean(generation)) %>%
+  filter(country %in% c('USA','GBR','NLD'))
+# %in% testa um vetor (ou coluna) para valores contidos em outro vetor
+tab1
+tab2 <- energy_gen_long %>%
+  mutate(decade = 10*floor(TIME/10)) %>%
+  group_by(decade, country) %>%
+  summarise(avgGen = mean(generation)) %>%
+  filter(country %in% c('NOR','NLD'))
+tab2
+tab1 %>%
+  inner_join(tab2)
+tab1 %>%
+  left_join(tab2)
+tab1 %>%
+  right_join(tab2)
+tab1 %>%
+  full_join(tab2)
+```
+
+### Exercício sugerido
+
+The file we used so far is actually a simplification of a larger file, available [here](https://www.dropbox.com/s/nx1rd3byrj7gtjv/EnergyData.csv?dl=1)
+
+A good exercise would be to filter and select through this file to make a file as similar as possible to the simplified version we used on this tutorial.
+
+### Observações
+
+#### Lidando com datas (e _datetimes_)
+
+Datas e _datetimes_ são interpretadas de forma diferente entre o Excel e a maior parte das linguagens de programação.
+Enquanto o Excel trata a todos como o mesmo tipo de objeto, sendo horas dentro de um dia interpretadas como frações, o R utiliza duas classes distintas.
+A classe **Date** (utilize a função `as.Date()` para criar objetos dessa classe) guarda apenas datas, como valores inteiros entre o dia e a origem (definida como 01/01/1970).
+Já a classe **POSIXt** (utilize a função `as.POSIXct()` ou `as.POSIXlt()`) guarda horas, minutos e segundos.
+Essas classes são altamente intercambiáveis entre si.
+Para detalhes , consulte o tutorial [Handling date-times in R](http://biostat.mc.vanderbilt.edu/wiki/pub/Main/ColeBeck/datestimes.pdf) de Cole Beck.
