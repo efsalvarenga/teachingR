@@ -83,7 +83,7 @@ This is a aesthetic decision as `=` can also be used for assigning values to obj
 ### Saving and loading data frames
 
 Data frames are flexible structures but still hold restrictions that allow them to be easily saved and loaded as simple table files.
-CSV files are preferable given their easy interpretation in many applications and OSes.
+CSV files are preferable given their easy interpretation in many applications and OS's.
 
 ```{r}
 df1 <- data.frame(A = let,
@@ -103,10 +103,10 @@ df2
 ## Data processig using Base R
 
 The function `read.csv()` and `read.csv2()` are sister functions of the `read.table()` used before and can be used to load many data sources.
-Other file types can also be imported, such as MS Excel spreadsheets (through the `readxl` and many others), SQL querries, etc.
+Other file types can also be imported, such as MS Excel spreadsheets (through the `readxl` and many others), SQL queries, etc.
 For further information of how to import specific file types, please see [This R Data Import Tutorial Is Everything You Need](https://www.datacamp.com/community/tutorials/r-data-import-tutorial).
 
-You will be importing a simplyfied dataset for the next steps on this tutorial.
+You will be importing a simplified dataset for the next steps on this tutorial.
 This dataset contains the historical energy generation for a few countries (in GWh).
 
 ```{r}
@@ -175,7 +175,7 @@ library(dplyr)
 ```
 
 `dplyr` is used for chaining functions in an execution routine.
-This schema allows the invertion of a function and its arguments, based of the `%>%` operator from `magittr`.
+This schema allows the inversion of a function and its arguments, based of the `%>%` operator from `magittr`.
 In this sense, `f(x)` can be presented as `x %>% f`, which makes it easier to read long execution chains.
 
 ```{r}
